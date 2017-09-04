@@ -44,7 +44,7 @@ object SaveTweets {
         // Combine each partition's results into a single RDD:
         val repartitionedRDD = rdd.repartition(1).cache()
         // And print out a directory with the results.
-        repartitionedRDD.saveAsTextFile("Tweets_" + time.milliseconds.toString)
+        repartitionedRDD.saveAsTextFile("/home/ht/BigData/Timing/tweet_output/Tweets_" + time.milliseconds.toString)
         // Stop once we've collected 1000 tweets.
         totalTweets += repartitionedRDD.count()
         println("Tweet count: " + totalTweets)
