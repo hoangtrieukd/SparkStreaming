@@ -37,7 +37,7 @@ object SaveTweets {
     // Keep count of how many Tweets we've received so we can stop automatically
     // (and not fill up your disk!)
     var totalTweets:Long = 0
-        
+    statuses.print()    
     statuses.foreachRDD((rdd, time) => {
       // Don't bother with empty batches
       if (rdd.count() > 0) {
@@ -48,7 +48,7 @@ object SaveTweets {
         // Stop once we've collected 1000 tweets.
         totalTweets += repartitionedRDD.count()
         println("Tweet count: " + totalTweets)
-        if (totalTweets > 1000) {
+        if (totalTweets > 100) {
           System.exit(0)
         }
       }
@@ -57,7 +57,7 @@ object SaveTweets {
     // You can also write results into a database of your choosing, but we'll do that later.
     
     // Set a checkpoint directory, and kick it all off
-    ssc.checkpoint("C:/checkpoint/")
+    ssc.checkpoint("/home/ht/BigData/Timing/Checkpoint/")
     ssc.start()
     ssc.awaitTermination()
   }  
